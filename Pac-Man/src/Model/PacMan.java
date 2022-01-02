@@ -17,7 +17,6 @@ public class PacMan {
 	private float[] color;
 	private int layers;
 	private pacmanStatus status;
-	private Box box;
 	private boolean statusFlage = false;
 	private int speed;
 
@@ -30,7 +29,7 @@ public class PacMan {
 	 * @param layers
 	 * @param status
 	 */
-	public PacMan(float[] color, int centerX, int centerY, int radius, int layers, pacmanStatus status,int speed) {
+	public PacMan(float[] color, int centerX, int centerY, int radius, int layers, pacmanStatus status, int speed) {
 		super();
 		this.color = color;
 		this.centerX = centerX;
@@ -38,17 +37,11 @@ public class PacMan {
 		this.radius = radius;
 		this.layers = layers;
 		this.status = pacmanStatus.noDirection;
-		this.speed=speed;
+		this.speed = speed;
 		this.points = new LinkedList<List<int[][]>>();
-		this.box = initBox(centerX, centerY, radius + 1, color);
 		new Thread(() -> {
 			this.points = initPoints(status, this.layers);
 		}).start();
-	}
-
-	private Box initBox(int centerX, int centerY, int radius, float[] color) {
-		return new Box(new Point(centerX + radius, centerY - radius), new Point(centerX + radius, centerY + radius),
-				new Point(centerX - radius, centerY + radius), new Point(centerX - radius, centerY - radius), color);
 	}
 
 	private boolean checkMove(GL2 gl, float[] stopColor, pacmanStatus status) {
@@ -102,7 +95,7 @@ public class PacMan {
 
 	}
 
-	public void left(GL2 gl, float[] Color) {
+	public boolean left(GL2 gl, float[] Color) {
 		if (statusFlage) {
 			statusFlage = false;
 			this.points = initPoints(pacmanStatus.left, layers);
@@ -110,9 +103,10 @@ public class PacMan {
 		if (!checkMove(gl, Color, pacmanStatus.left)) {
 			move(-speed, 0);
 		}
+		return !statusFlage;
 	}
 
-	public void right(GL2 gl, float[] Color) {
+	public boolean right(GL2 gl, float[] Color) {
 		if (statusFlage) {
 			statusFlage = false;
 			this.points = initPoints(pacmanStatus.right, layers);
@@ -120,9 +114,10 @@ public class PacMan {
 		if (!checkMove(gl, Color, pacmanStatus.right)) {
 			move(speed, 0);
 		}
+		return !statusFlage;
 	}
 
-	public void up(GL2 gl, float[] Color) {
+	public boolean up(GL2 gl, float[] Color) {
 		if (statusFlage) {
 			statusFlage = false;
 			this.points = initPoints(pacmanStatus.up, layers);
@@ -130,9 +125,10 @@ public class PacMan {
 		if (!checkMove(gl, Color, pacmanStatus.up)) {
 			move(0, speed);
 		}
+		return !statusFlage;
 	}
 
-	public void down(GL2 gl, float[] Color) {
+	public boolean down(GL2 gl, float[] Color) {
 		if (statusFlage) {
 			statusFlage = false;
 			this.points = initPoints(pacmanStatus.down, layers);
@@ -140,6 +136,7 @@ public class PacMan {
 		if (!checkMove(gl, Color, pacmanStatus.down)) {
 			move(0, -speed);
 		}
+		return !statusFlage;
 	}
 
 	public void move(int x, int y) {
@@ -153,16 +150,6 @@ public class PacMan {
 			for (int[][] is : list) {
 				for (int[] is2 : is) {
 					DrawingUtility.setPixelColor(gl, this.color, is2[0], is2[1]);
-				}
-			}
-		}
-	}
-
-	public void draw(GL2 gl, float[] color) {
-		for (List<int[][]> list : this.points) {
-			for (int[][] is : list) {
-				for (int[] is2 : is) {
-					DrawingUtility.setPixelColor(gl, color, is2[0], is2[1]);
 				}
 			}
 		}
@@ -207,9 +194,6 @@ public class PacMan {
 		return status;
 	}
 
-	public Box getBox() {
-		return box;
-	}
 
 	public int getCenterX() {
 		return centerX;
@@ -234,7 +218,5 @@ public class PacMan {
 	public void setCenterY(int centerY) {
 		this.centerY = centerY;
 	}
-	
-	
 
 }

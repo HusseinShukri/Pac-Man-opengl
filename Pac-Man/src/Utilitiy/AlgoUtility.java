@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jogamp.opengl.GL2;
 
-import Model.Line;
+import Model.Wall;
 
 public class AlgoUtility {
 	
@@ -17,7 +17,7 @@ public class AlgoUtility {
 		}
 	}
 	
-	public static void drowLines_STRIP(GL2 gl, float[] rgb, Line line,int thickness) {
+	public static void drowLines_STRIP(GL2 gl, float[] rgb, Wall line,int thickness) {
 		for (int th = 0; th < thickness; th++) {
 				AlgoUtility.bressenham(gl, rgb, line.getPoint1().getX()+th, line.getPoint1().getY(),line.getPoint2().getX()+th, line.getPoint2().getY());
 		}

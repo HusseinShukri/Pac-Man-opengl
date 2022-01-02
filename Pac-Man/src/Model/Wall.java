@@ -1,13 +1,17 @@
 package Model;
 
-public class Line {
+import Utilitiy.ColorsUtility;
+
+public class Wall {
 	private Point point1;
 	private Point point2;
+	private float[] color;
 
-	public Line(Point point1, Point point2) {
+	public Wall(Point point1, Point point2, float[] color) {
 		super();
 		this.point1 = point1;
 		this.point2 = point2;
+		this.color = ColorsUtility.checkColor(color);
 	}
 
 	public Point getPoint1() {
@@ -29,4 +33,13 @@ public class Line {
 			this.point2 = point2;
 		}
 	}
+
+	public float[] getColor() {
+		return color;
+	}
+
+	public void setColor(float[] color) {
+		this.color = ColorsUtility.checkColor(color);
+	}
+
 }

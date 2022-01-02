@@ -5,15 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class HomeWindow {
 
-	private JFrame frame;
+public class StartWindow {
 
+	private JFrame frmStart;
+
+//	private Clip clip;
 	/**
 	 * Launch the application.
 	 */
@@ -21,8 +21,8 @@ public class HomeWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomeWindow window = new HomeWindow();
-					window.frame.setVisible(true);
+					StartWindow window = new StartWindow();
+					window.frmStart.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,7 +33,7 @@ public class HomeWindow {
 	/**
 	 * Create the application.
 	 */
-	public HomeWindow() {
+	public StartWindow() {
 		initialize();
 	}
 
@@ -41,24 +41,23 @@ public class HomeWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 905, 557);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		
-		
+		frmStart = new JFrame();
+		frmStart.setTitle("Start");
+		frmStart.setResizable(false);
+		frmStart.setBounds(100, 100, 632, 314);
+		frmStart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStart.getContentPane().setLayout(null);
+
 		JButton btnNewButton = new JButton("Start");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameWindow window = new GameWindow();
 				window.getFrame().setVisible(true);
-				frame.setVisible(false);
+				frmStart.setVisible(false);
 			}
 		});
 		btnNewButton.setFont(new Font("Snap ITC", Font.PLAIN, 30));
-		btnNewButton.setBounds(198, 151, 331, 108);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(127, 70, 331, 108);
+		frmStart.getContentPane().add(btnNewButton);
 	}
 }

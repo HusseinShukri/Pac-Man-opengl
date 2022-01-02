@@ -1,6 +1,5 @@
 package Model;
 
-
 public class Coin {
 	private Circle circle;
 
@@ -21,10 +20,4 @@ public class Coin {
 		return circle;
 	}
 	
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(name);
-//	}
-
-
 }

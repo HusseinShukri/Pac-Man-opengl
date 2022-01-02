@@ -9,7 +9,7 @@ import Utilitiy.AlgoUtility;
 import Utilitiy.DrawingUtility;
 import Utilitiy.MatricesUtility;
 
-public class Ghost {
+public class Ghost2 {
 
 	private int centerX;
 	private int centerY;
@@ -18,12 +18,13 @@ public class Ghost {
 	private float[] color;
 	private int layers;
 	
-	private Line[] track;
+	private List<Line> tracks;
 	private int currentTrack;
 	private boolean newTrack;
 	private int speed;
 	private boolean xOperation;
 	private boolean yOperation;
+	private boolean mode2 = false;
 
 	/**
 	 * 
@@ -35,20 +36,20 @@ public class Ghost {
 	 * @param track
 	 * @param speed
 	 */
-	public Ghost(float[] color, int centerX, int centerY, int radius, int layers, Line[] track, int speed) {
+	public Ghost2(float[] color, int centerX, int centerY, int radius, int layers, List<Line> track, int speed) {
 		super();
 		this.color = color;
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.radius = radius;
 		this.layers = layers;
-		this.track = track;
+		this.tracks = track;
 		this.currentTrack = 0;
 		this.speed = speed;
-		decideOperation(track[0].getPoint1(), track[0].getPoint2());
+		decideOperation(track.get(0).getPoint1(), track.get(0).getPoint2());
 		this.points = new LinkedList<List<int[][]>>();
 		new Thread(() -> {
-			this.points = initPoints( this.layers);
+			this.points = initPoints(this.layers);
 		}).start();
 	}
 
@@ -65,39 +66,52 @@ public class Ghost {
 		}
 	}
 
-	public void draw(GL2 gl) {
-		if (currentTrack == this.track.length-1 && newTrack) {
+	public boolean draw(GL2 gl, List<Line> NTrack) {
+		if (NTrack.isEmpty()) {
+			return false;
+		}
+		if (currentTrack == this.tracks.size() - 1 && newTrack) {
 			newTrack = false;
 			currentTrack = 0;
-			decideOperation(track[currentTrack].getPoint1(), track[currentTrack].getPoint2());
-			System.out.println("Event : Ghost Bule Reset Track");
+			mode2 = true;
+			System.out.println("Event : Ghost Red Get New Tracks");
+//			System.out.println("Event : Ghost Red End initial Tracks & Start Following Pac Man");
 		} else if (newTrack) {
 			newTrack = false;
 			currentTrack++;
-			decideOperation(track[currentTrack].getPoint1(), track[currentTrack].getPoint2());
-			System.out.println("Event : Ghost Bule New Track");
+			decideOperation(tracks.get(currentTrack).getPoint1(), tracks.get(currentTrack).getPoint2());
+			System.out.println("Event : Ghost Red Get New Track");
 		}
 
-		if (this.centerX != track[currentTrack].getPoint2().getX()
-				|| this.centerY != track[currentTrack].getPoint2().getY()) {
-			if (this.centerX != track[currentTrack].getPoint2().getX()) {
-				if (xOperation) {
-					move(speed, 0);
-				} else {
-					move(-speed, 0);
-				}
-			} else if (this.centerY != track[currentTrack].getPoint2().getY()) {
-				if (yOperation) {
-					move(0, speed);
-				} else {
-					move(0, -speed);
-				}
+		if (mode2) {
+			this.tracks.clear();
+			this.tracks.addAll(NTrack);
+			mode2 = false;
+			return true;
 
-			}
 		} else {
-			newTrack = true;
+			if (this.centerX != tracks.get(currentTrack).getPoint2().getX()
+					|| this.centerY != tracks.get(currentTrack).getPoint2().getY()) {
+				if (this.centerX != tracks.get(currentTrack).getPoint2().getX()) {
+					if (xOperation) {
+						move(speed, 0);
+					} else {
+						move(-speed, 0);
+					}
+				} else if (this.centerY != tracks.get(currentTrack).getPoint2().getY()) {
+					if (yOperation) {
+						move(0, speed);
+					} else {
+						move(0, -speed);
+					}
+
+				}
+			} else {
+				newTrack = true;
+			}
 		}
 		drawShape(gl);
+		return false;
 	}
 
 	public void move(int x, int y) {
@@ -116,11 +130,11 @@ public class Ghost {
 		}
 	}
 
-	private List<List<int[][]>> initPoints( int layers) {
+	private List<List<int[][]>> initPoints(int layers) {
 		List<List<int[][]>> points = new LinkedList<List<int[][]>>();
-			for (int i = 0; i < layers; i++) {
-				points.add(AlgoUtility.midPointCircle(this.centerX, this.centerY, radius - i));
-		} 
+		for (int i = 0; i < layers; i++) {
+			points.add(AlgoUtility.midPointCircle(this.centerX, this.centerY, radius - i));
+		}
 		return points;
 	}
 
@@ -131,6 +145,5 @@ public class Ghost {
 	public int getCenterY() {
 		return centerY;
 	}
-	
-	
+
 }
