@@ -12,6 +12,11 @@ public class WinWindow {
 	public JFrame getFrmWin() {
 		return frmWin;
 	}
+	
+	public static void main(String[] args) {
+		WinWindow window  =new WinWindow();
+		window.getFrmWin().setVisible(true);
+	}
 
 	public WinWindow() {
 		initialize();

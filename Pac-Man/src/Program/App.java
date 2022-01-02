@@ -1,11 +1,11 @@
 package Program;
 
-import GUI.GameWindow;
+import GUI.StartWindow;
 
 public class App {
 	
 	public static void main(String[] args) {
-		GameWindow window = new GameWindow();
+		StartWindow window = new StartWindow();
 		window.getFrame().setVisible(true);
 	}
 

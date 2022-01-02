@@ -74,13 +74,11 @@ public class Ghost2 {
 			newTrack = false;
 			currentTrack = 0;
 			mode2 = true;
-			System.out.println("Event : Ghost Red Get New Tracks");
-//			System.out.println("Event : Ghost Red End initial Tracks & Start Following Pac Man");
+			System.out.println("Event : Ghost Red Get New Tracks & Start Following Pac Man");
 		} else if (newTrack) {
 			newTrack = false;
 			currentTrack++;
 			decideOperation(tracks.get(currentTrack).getPoint1(), tracks.get(currentTrack).getPoint2());
-			System.out.println("Event : Ghost Red Get New Track");
 		}
 
 		if (mode2) {

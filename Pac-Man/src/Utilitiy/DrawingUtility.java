@@ -4,7 +4,6 @@ import java.nio.FloatBuffer;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GL3;
 
 
 public class DrawingUtility {
@@ -22,20 +21,8 @@ public class DrawingUtility {
 		gl.glReadPixels(x, y, 1, 1, GL.GL_RGBA, GL.GL_FLOAT, buffer);
 		float[] pixels = new float[3];
 		pixels = buffer.array();
-//		System.out.println(pixels[0]+" "+pixels[1]+" "+pixels[2]);
 		return new float[] { pixels[0], pixels[1], pixels[2] };
 	}
 
-
-//	public static void drawLines(GL2 gl, LinkedList<Line> lines) {
-//		for (Line line : lines) {
-//			gl.glColor3f(line.getColor()[0], line.getColor()[1], line.getColor()[2]);
-//			gl.glBegin(GL.GL_LINES);
-//			gl.glVertex2f(line.getPoint1().getX(), line.getPoint1().getY());
-//			gl.glVertex2f(line.getPoint2().getX(), line.getPoint2().getY());
-//			gl.glEnd();
-//
-//		}
-//	}
 
 }

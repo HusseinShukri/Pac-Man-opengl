@@ -1,45 +1,29 @@
 package GUI;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
+import javafx.scene.media.AudioClip;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 
 public class StartWindow {
 
 	private JFrame frmStart;
-
-//	private Clip clip;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StartWindow window = new StartWindow();
-					window.frmStart.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
+	private AudioClip audioClip;
+	
 	public StartWindow() {
 		initialize();
+		audioClip = new AudioClip(new File("resource\\audio\\intro.mp3").toURI().toString());
+		audioClip.setCycleCount(100);
+		audioClip.play();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmStart = new JFrame();
 		frmStart.setTitle("Start");
@@ -54,10 +38,15 @@ public class StartWindow {
 				GameWindow window = new GameWindow();
 				window.getFrame().setVisible(true);
 				frmStart.setVisible(false);
+				audioClip.stop();
 			}
 		});
 		btnNewButton.setFont(new Font("Snap ITC", Font.PLAIN, 30));
 		btnNewButton.setBounds(127, 70, 331, 108);
 		frmStart.getContentPane().add(btnNewButton);
+	}
+
+	public JFrame getFrame() {
+		return this.frmStart;
 	}
 }

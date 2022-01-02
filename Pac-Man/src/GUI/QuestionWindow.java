@@ -54,7 +54,6 @@ public class QuestionWindow {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (correctAnser == 1) {
-					System.out.println("أحسنت");
 					dto.isAnsweredCorrect = true;
 				}
 				dto.isAnswered = true;
@@ -69,7 +68,6 @@ public class QuestionWindow {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (correctAnser == 2) {
-					System.out.println("أحسنت");
 					dto.isAnsweredCorrect = true;
 				}
 				dto.isAnswered = true;
@@ -84,7 +82,6 @@ public class QuestionWindow {
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (correctAnser == 3) {
-					System.out.println("أحسنت");
 					dto.isAnsweredCorrect = true;
 				}
 				dto.isAnswered = true;

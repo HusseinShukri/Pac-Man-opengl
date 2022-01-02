@@ -15,7 +15,7 @@ import com.jogamp.opengl.util.FPSAnimator;
 import Dto.QuestionDto;
 import GUI.LoseWindow;
 import GUI.QuestionWindow;
-import GUI.WinWindow;
+import GUI.WinWindow2;
 import Model.Circle;
 import Model.Coin;
 import Model.Ghost;
@@ -27,6 +27,7 @@ import Model.Point;
 import Model.QuestionsList;
 import Model.pacmanStatus;
 import Utilitiy.AlgoUtility;
+import Utilitiy.AudioUtility;
 import Utilitiy.ColorsUtility;
 
 public class CanvasLoopListener extends ClassJOGL {
@@ -51,26 +52,31 @@ public class CanvasLoopListener extends ClassJOGL {
 	private void updateLabelScore() {
 		this.scoreLabel.setText(score + "");
 	}
-	
+
 	private void win() {
-		WinWindow window = new WinWindow();
-		window.getFrmWin().setVisible(true);
+		WinWindow2 window = new WinWindow2();
+		window.getFrmWinner().setVisible(true);
 		this.gameWindowFrame.setVisible(false);
 	}
-	
+
 	private void lose() {
+		AudioUtility.playDeath();
 		LoseWindow window = new LoseWindow();
 		window.getFrmLose().setVisible(true);
 		this.gameWindowFrame.setVisible(false);
 	}
-	
+
 	public void resum() {
 		if (dto.isAnsweredCorrect) {
+			AudioUtility.playCorrect();
+			//audio
 			lives.add(new PacMan(new float[] { 1, 1, 0 }, liveShift, 16, 8, 8, pacmanStatus.right, 0));
 			liveShift = updateShiftAdd(liveShift);
 		} else {
+			AudioUtility.playWrong();
+			//audio
 			this.lives.removeLast();
-			liveShift=updateShiftRemove(liveShift);
+			liveShift = updateShiftRemove(liveShift);
 			if (this.lives.isEmpty()) {
 				getAnimator().stop();
 				this.lose();
@@ -78,15 +84,15 @@ public class CanvasLoopListener extends ClassJOGL {
 		}
 		getAnimator().resume();
 	}
-	
+
 	private void isQuastionTime() {
 		if (score != 0 && this.score % 150 == 0) {
 			getAnimator().pause();
 			dto.isAnsweredCorrect = false;
 			dto.isAnswered = false;
-			QuestionWindow window = new QuestionWindow(this,dto, list.getQuestion());
+			QuestionWindow window = new QuestionWindow(this, dto, list.getQuestion());
 			window.getFrame().setVisible(true);
-			
+
 		}
 	}
 
@@ -99,16 +105,16 @@ public class CanvasLoopListener extends ClassJOGL {
 	private int updateShiftAdd(int shift) {
 		return shift += 20;
 	}
-	
+
 	private int updateShiftRemove(int shift) {
 		return shift -= 20;
 	}
 
-	public CanvasLoopListener(JLabel scoreLabel,JFrame gameWindowFrame) {
+	public CanvasLoopListener(JLabel scoreLabel, JFrame gameWindowFrame) {
 		super();
 		try {
 			this.scoreLabel = scoreLabel;
-			this.gameWindowFrame=gameWindowFrame;
+			this.gameWindowFrame = gameWindowFrame;
 			this.setBackgroundColor(new float[] { 0, 0, 0 });
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -308,7 +314,7 @@ public class CanvasLoopListener extends ClassJOGL {
 				if (packman.right(getGl(), wallColro)) {
 					updateTrack(packman.getCenterX(), packman.getCenterY());
 				}
-			} 
+			}
 		}
 		if (recoveryTime > 0) {
 			this.recoveryTime--;
@@ -332,6 +338,10 @@ public class CanvasLoopListener extends ClassJOGL {
 			if (isCollide(packman.getCenterX(), packman.getCenterY(), packman.getRadius(), coins.get(i).getX(),
 					coins.get(i).getY())) {
 				coins.remove(i);
+				if (this.score % 30 == 0) {
+					AudioUtility.playEatCoin();
+				}
+				;
 				this.score += 5;
 				updateLabelScore();
 				isQuastionTime();
@@ -349,12 +359,14 @@ public class CanvasLoopListener extends ClassJOGL {
 			if (recoveryTime <= 0) {
 				recoveryTime = 50;
 				this.lives.removeLast();
-				liveShift=updateShiftRemove(liveShift);
+				liveShift = updateShiftRemove(liveShift);
 				packman.setNoDirection();
 				packman.draw(getGl());
 				if (this.lives.isEmpty()) {
 					getAnimator().stop();
 					this.lose();
+				} else {
+					AudioUtility.playLiveLost();
 				}
 			}
 		} else if (isCollide(packman.getCenterX(), packman.getCenterY(), packman.getRadius() * 2, redGhost.getCenterX(),
