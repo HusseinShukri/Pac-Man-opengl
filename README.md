@@ -1,4 +1,20 @@
 # Pac-Man-opengl <br />
+**This is bold text**
+### About the game <be/>
+#### PacMan game where the player should collect all the coins to win the game, every certain number of coins there will be a question to be answered with consequences, if the answer is correct additional soule will be added to the player and if the answer is not correct one soule will be removed from the player, if number of souls reach Zero then the game end.<br/>
+## Ghosts<br/>
+#### There are two Ghosts following the player, Blue Ghost moving over a predefined path, Red Gohst moving over 2 types of tracks, first one is like the Blue Ghost where the Red Ghost start from certain point to the location where PackMan Starts the game and the second type of tracks is the track the user takes so the Red Ghost becomes like a shado for backman but moving in slower speed. <br/>
+
+## Damage System <br/>
+#### One hit of Blue Ghost consider as one sole losete but One hit of Red Ghost Ends the game. <br/>
+
+## Recovery Time <br/>
+#### After being hit by one of the Ghosts PacMan have sertinne number of frames to avoid Being hits or the Damage System will count new Hit.
+
+## Question System <br/>
+#### There is number of Questions abears while playing the game which has 3 choices with one correct answer, if the answer is correct then the player gains one soul and if the answer is not correct the player loses one soul <br/>
+
+## Game Overview <br/>
 ### Gameplay <br/>
 
 
@@ -25,6 +41,11 @@ https://user-images.githubusercontent.com/31711344/147983402-a7217e45-716c-43e4-
 <br/>
 
 ### Red Ghost Hit <br/>
+
+
+https://user-images.githubusercontent.com/31711344/148050091-5c170607-dfd2-4933-8d30-921b34912353.mp4
+
+
 
 <br/>
 
