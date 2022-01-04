@@ -48,7 +48,7 @@ public class WinWindow2 {
 		JOGLPanel.setBounds(10, 10, 600, 400);
 		frmWinner.getContentPane().add(JOGLPanel);
 		
-		JLabel lblNewLabel = new JLabel("\u0627\u0644\u0641 \u0627\u0644\u0641 \u0645\u0628\u0631\u0648\u0643 (\u064A\u0627 \u0631\u0628 \u0646\u0646\u062C\u062D)");
+		JLabel lblNewLabel = new JLabel("\u0627\u0644\u0641 \u0627\u0644\u0641 \u0645\u0628\u0631\u0648\u0643 ");
 		lblNewLabel.setFont(new Font("Arabic Typesetting", Font.BOLD, 53));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 409, 600, 57);
