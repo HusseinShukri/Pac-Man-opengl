@@ -14,6 +14,12 @@
 ## Question System <br/>
 #### There is number of Questions abears while playing the game which has 3 choices with one correct answer, if the answer is correct then the player gains one soul and if the answer is not correct the player loses one soul <br/>
 
+## Contributers
+<a href="https://github.com/HusseinShukri/Pac-Man-opengl/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=HusseinShukri/Pac-Man-opengl" />
+   <img src="https://contrib.rocks/image?repo=mohammadmurra/Jam3na_application_2021" />
+</a>
+
 ## Game Overview <br/>
 ### Gameplay <br/>
 
