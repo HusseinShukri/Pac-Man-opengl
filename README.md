@@ -1,5 +1,5 @@
-# Pac-Man-opengl <br />
-**This is bold text**
+# Pac-Man-opengl <br /><br />
+
 ### About the game <be/>
 #### PacMan game where the player should collect all the coins to win the game, every certain number of coins there will be a question to be answered with consequences, if the answer is correct additional soule will be added to the player and if the answer is not correct one soule will be removed from the player, if number of souls reach Zero then the game end.<br/>
 ## Ghosts<br/>
